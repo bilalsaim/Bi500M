@@ -1,0 +1,5 @@
+Bilal	2000	
+Ahmet	5000
+bilal	0	
+null	0	
+uıyuı	1000	
