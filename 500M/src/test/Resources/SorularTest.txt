@@ -1,2 +1,2 @@
-﻿Bu programı kim yazmıştır?	Bilal	Tesla	Sokrates	Bill Gates	A	1
-Türkiyenin başkenti neresidir?	Bursa	Ankara	Antalya	İzmir	B	1
+Bu programı kim yazmıştır?	Bilal	Tesla	Sokrates	Bill Gates	A	1
+Türkiyenin başkenti neresidir?	Bursa	Ankara	Antalya	İzmir	B	2
