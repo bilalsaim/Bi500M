@@ -24,7 +24,7 @@ public class Frame extends Applet implements ActionListener
 {
     final static Logger log = Logger.getLogger(Frame.class);
 
-    //Global değişkenler
+    //değişkenler
     private JRadioButton a,b,c,d;
     JButton cev,pas,jo1,jo2,jo3,jo4;
     private JTextArea tf1;
@@ -38,13 +38,26 @@ public class Frame extends Applet implements ActionListener
     boolean x2=false;
     private ImageIcon konumRes,konumCarpi;
     private JLabel res,carpi1,carpi2,carpi3,carpi4;
-    int resx=372;
+    int resx = 372;
+
+    //dosyaOku() fonksiyonu için global değişkenler
+    public String[] sorular = new String[100];
+    public String[] sikA = new String[100];
+    public String[] sikB = new String[100];
+    public String[] sikC = new String[100];
+    public String[] sikD = new String[100];
+    public char[] cevap = new char[100];
+    public int[] duzey = new int[100];
+    public int[] cikti = new int[100];
+    public int sSayi=0;
+    private String sorularDosyaAdi;
 
     ClassLoader classLoader = getClass().getClassLoader();
 
     public void init()
     {
-        sorulariOku();//Dosyadan verilerin okunması için gerekli işlemleri yapan fonksiyon.
+        sorularDosyaAdi = "Sorular.txt";
+        sorulariDosyadanOku();//Dosyadan verilerin okunması için gerekli işlemleri yapan fonksiyon.
         cikanSorular();//Oyun başında tüm soruları daha ekrana gelmemiş kabul edip 0 atadık
         boyut=rstSoru();
         konumRes = new ImageIcon(classLoader.getResource("res.png").getPath());
@@ -327,7 +340,6 @@ public class Frame extends Applet implements ActionListener
                         String yazi;
 
                         if(soru < 2) {
-
                             yazi="Malesef Hiç Para Kazanamadınız.";
                             para=0;
                         }
@@ -371,7 +383,7 @@ public class Frame extends Applet implements ActionListener
                     125000,250000};
             para = oduller[soru];
 
-            durum=JOptionPane.showOptionDialog(fr,"Tebrikler "+para+ " TL Kazandınız."+" Skorunuzu dosyaya kaydetmek ister misiniz?", "Oyun Bitti",
+            durum=JOptionPane.showOptionDialog(fr,"Tebrikler " + para + " TL Kazandınız." + " Skorunuzu dosyaya kaydetmek ister misiniz?", "Oyun Bitti",
                     JOptionPane.YES_NO_CANCEL_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null,
@@ -477,35 +489,15 @@ public class Frame extends Applet implements ActionListener
         }//jo4(Telefon) joker butonu komutları sonu
     }
 
-    private void dosyaYaz(String kullanici) {
-        Writer fw = null;
-
-        try{
-            fw = new FileWriter("Skorlar.txt",true);
-            fw.write(kullanici+"\t"+para+"\t"+System.getProperty( "line.separator" ));
-        }catch(IOException e){
-            log.error("Skorlar yazılırken hata oluştu: " + e.getMessage());
-        }finally{
-            if(fw !=null){
-                try{
-                    fw.close();
-                } catch(IOException e){
-                    log.error("Skorlar dosyasını kapatmaya çalışırken hata oluştu: " + e.getMessage());
-                }
-            }
-        }
-
-    }
-
     private void oyunBitimi(int durum) {
         Object[] secenek = { "EVET", "HAYIR" };
         int durum2;
 
-        if(durum==0) {
+        if(durum == 0) {
             String kullanici = JOptionPane.showInputDialog(fr,
                     "İsminizi giriniz: ",
                     "Oyun Bitti", JOptionPane.INFORMATION_MESSAGE);
-            dosyaYaz(kullanici);
+            skoruDosyayaYaz(kullanici);
         }
 
 
@@ -561,25 +553,34 @@ public class Frame extends Applet implements ActionListener
         }
     }
 
-    //dosyaOku() fonksiyonu için global değişkenler
-    public String[] sorular = new String[100];
-    public String[] sikA = new String[100];
-    public String[] sikB = new String[100];
-    public String[] sikC = new String[100];
-    public String[] sikD = new String[100];
-    public char[] cevap = new char[100];
-    public int[] duzey = new int[100];
-    public int[] cikti = new int[100];
-    public int sSayi=0;
+    private void skoruDosyayaYaz(String kullanici) {
+        Writer fw = null;
 
-    public void sorulariOku() {
+        try{
+            fw = new FileWriter("Skorlar.txt",true);
+            fw.write(kullanici + "\t" + para+  "\t" + System.getProperty( "line.separator" ));
+        }catch(IOException e){
+            log.error("Skorlar yazılırken hata oluştu: " + e.getMessage());
+        }finally{
+            if(fw !=null){
+                try{
+                    fw.close();
+                } catch(IOException e){
+                    log.error("Skorlar dosyasını kapatmaya çalışırken hata oluştu: " + e.getMessage());
+                }
+            }
+        }
+
+    }
+
+    public void sorulariDosyadanOku() {
         FileInputStream dosya;
         int veri=-1;
         int i=0;
 
         try {
-            dosya = new FileInputStream(classLoader.getResource("Sorular.txt").getPath());
-            InputStreamReader isr = new InputStreamReader(dosya,Charset.forName("ISO8859-9")); //Dosyadan çekilen verideki türkçe karakterleri algılaması için
+            dosya = new FileInputStream(classLoader.getResource(sorularDosyaAdi).getPath());
+            InputStreamReader isr = new InputStreamReader(dosya,Charset.forName("UTF-8")); //Dosyadan çekilen verideki türkçe karakterleri algılaması için
             BufferedReader bfr = new BufferedReader(isr);
 
             /*String değişkenlerin başlangıç değerlerini boş yapar.
@@ -591,7 +592,6 @@ public class Frame extends Applet implements ActionListener
             sikB[i]="";
             sikC[i]="";
             sikD[i]="";
-
             int x=0;
             do{
                 veri = bfr.read();
@@ -646,4 +646,11 @@ public class Frame extends Applet implements ActionListener
         }
     }
 
+    public String getSorularDosyaAdi() {
+        return sorularDosyaAdi;
+    }
+
+    public void setSorularDosyaAdi(String sorularDosyaAdi) {
+        this.sorularDosyaAdi = sorularDosyaAdi;
+    }
 }
