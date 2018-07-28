@@ -4,9 +4,7 @@ Meşhur Kim 500 Bin İster yarışma programının Java programlama dilinde yaz�
 
 ## Authors
 
-* **Bilal Saim** - *Initial work* - [Github](https://github.com/bilalsaim)
-
-[Website](https://github.com/your/project/contributors)
+* **Bilal Saim** - *Initial work* - [Github](https://github.com/bilalsaim) - [Personal Website](https://github.com/your/project/contributors)
 
 ## License
 
