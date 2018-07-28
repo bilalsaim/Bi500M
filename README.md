@@ -1,18 +1,28 @@
 # Kim 500 Bin İster?
 
-Meşhur Kim 500 Bin İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur.
+Meşhur Kim 500 Bin İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur. 2012'de geliştirmiştir ve sonrasında kod güncellemesi yapılmıştır.
+
 ![Kim 500 Bin İster Ekran Görüntüsü](https://bilalsaim.com/500m.png)
 
-## Authors
+## Bilgiler
 
-* **Bilal Saim** - *Initial work* - [Github](https://github.com/bilalsaim) - [Personal Website](https://github.com/your/project/contributors)
+* **Programlama dili:** JAVA 1.8
+* **Yazılım tarihi:** 2012
+* **Kütüphaneler:** JUnit, Log4j
+* **Çalışma ortamı:** Masaüstü
+* **İnşa sistemi:** Gradle
+* **Proje sürümü:** 1.1
+
+## Detaylar
+
+* Sorular main modülünün altındaki Resource klasörünün içinde bulunan Sorular.txt dosyasından okunur. Her satırda tab karakterleri kullanılarak veriler ayrılır. Satırdaki veriler: Soru, Şık A, Şık B, Şık C, Şık D, Cevap, Düzey olarak tutulur. Düzey sorunun zorluk düzeyini belirtir. 1 den 2 ye kadar olan sorular 1. düzey, 2 den 7 olan sorular 2. düzey, 7 den 12 ye olan sorular ise 3. düzey sorulardan seçilir.
+* Skorlar main modülünün altındaki Resource klasörünün içinde bulunan Skorlar.txt dosyasına yazılır.
+* Arka plan veya diğer resimlerin Illustration dosyaları projenin içinde bulunan graphics klasörünün altında yer alır.
+
+## Yazar
+
+* **Bilal Saim** - *Diğer Projeler* - [Github](https://github.com/bilalsaim) - [Kişisel İnternet Sayfası](https://github.com/bilalsaim)
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
