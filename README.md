@@ -1,17 +1,17 @@
-# Kim 500 Milyoner İster?
+# Kim Milyoner Olmak İster?
 
-Meşhur eski adıyla Kim 500 Milyon İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur. 2012'de geliştirmiştir ve sonrasında kod güncellemesi yapılmıştır.
+Meşhur Kim Milyoner Olmak İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur. 2012'de geliştirmiştir ve sonrasında kod güncellemesi yapılmıştır.
 
 ![Kim 500 Bin İster Ekran Görüntüsü](https://bilalsaim.com/500m.png)
 
 ## Bilgiler
 
-* **Programlama dili:** JAVA 1.8
-* **Yazılım tarihi:** 2012
-* **Kütüphaneler:** JUnit, Log4j
-* **Çalışma ortamı:** Masaüstü
-* **İnşa sistemi:** Gradle
-* **Proje sürümü:** 1.1
+* **Programlama dili:** `JAVA 1.8`
+* **Yazılım tarihi:** `2012`
+* **Kütüphaneler:** `JUnit`, `Log4j`
+* **Çalışma ortamı:** `Masaüstü`
+* **İnşa sistemi:** `Gradle`
+* **Proje sürümü:** `1.1`
 
 ## Detaylar
 
