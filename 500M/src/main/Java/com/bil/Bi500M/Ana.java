@@ -4,10 +4,13 @@ package com.bil.Bi500M;
  * and open the template in the editor.
  */
 
-public class Main {
+import org.apache.log4j.BasicConfigurator;
+
+public class Ana {
 
     public static void main(String[] args) {
-        Frame frm1 = new Frame();
+        BasicConfigurator.configure();
+        Pencere frm1 = new Pencere();
         frm1.init();
     }
 

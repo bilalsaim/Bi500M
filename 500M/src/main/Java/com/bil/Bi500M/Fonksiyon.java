@@ -39,7 +39,8 @@ public class Fonksiyon {
                 }else{
                     veriDizisi = satir.split("\t");
                     if(veriDizisi.length != anahtar.length){
-                        throw new Exception("Veri anahtar sayısı dosyadaki girdilerle uyuşmuyor!");
+                        log.debug("Hatalı satır: " + satir);
+                        continue;
                     }
 
                     for(int i = 0; i < veriDizisi.length; i++){
@@ -53,6 +54,7 @@ public class Fonksiyon {
             log.error("Dosya okunamadı " + e.getMessage());
             JOptionPane.showMessageDialog(null,"Dosya Okunamadı", "Hata",
                     JOptionPane.ERROR_MESSAGE);
+            return new HashMap<>();
         }
 
         return veri;

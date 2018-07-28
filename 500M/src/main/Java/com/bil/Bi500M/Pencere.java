@@ -10,21 +10,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Writer;
-import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
 import java.util.Random;
 
-public class Frame extends Applet implements ActionListener
+public class Pencere extends Applet implements ActionListener
 {
-    final static Logger log = Logger.getLogger(Frame.class);
+    final static Logger log = Logger.getLogger(Pencere.class);
+    ClassLoader classLoader = getClass().getClassLoader();
 
-    //değişkenler
     private JRadioButton a,b,c,d;
     JButton cev,pas,jo1,jo2,jo3,jo4;
     private JTextArea tf1;
@@ -40,25 +37,26 @@ public class Frame extends Applet implements ActionListener
     private JLabel res,carpi1,carpi2,carpi3,carpi4;
     int resx = 372;
 
-    //dosyaOku() fonksiyonu için global değişkenler
-    public String[] sorular = new String[100];
-    public String[] sikA = new String[100];
-    public String[] sikB = new String[100];
-    public String[] sikC = new String[100];
-    public String[] sikD = new String[100];
-    public char[] cevap = new char[100];
-    public int[] duzey = new int[100];
-    public int[] cikti = new int[100];
-    public int sSayi=0;
-    private String sorularDosyaAdi;
+    int[] cikti; // Soruların sorulup sorulmadığı
+    int sSayi; // Soru sayısı
 
-    ClassLoader classLoader = getClass().getClassLoader();
+
+    Fonksiyon fonksiyon;
+    Map<String, ArrayList<String>> veri;
 
     public void init()
     {
-        sorularDosyaAdi = "Sorular.txt";
-        sorulariDosyadanOku();//Dosyadan verilerin okunması için gerekli işlemleri yapan fonksiyon.
-        cikanSorular();//Oyun başında tüm soruları daha ekrana gelmemiş kabul edip 0 atadık
+        fonksiyon = new Fonksiyon();
+        veri = fonksiyon.veriOku("Sorular.txt");
+
+        if(!veri.containsKey("Soru"))
+            return;
+
+        sSayi = veri.get("Soru").size();
+        cikti = new int[sSayi];
+        //Oyun başında tüm soruları daha ekrana gelmemiş kabul edip 0 atadık
+        Arrays.fill(cikti, 0);
+
         boyut=rstSoru();
         konumRes = new ImageIcon(classLoader.getResource("res.png").getPath());
         konumCarpi = new ImageIcon(classLoader.getResource("carpi.png").getPath());
@@ -118,16 +116,16 @@ public class Frame extends Applet implements ActionListener
         jo4=new JButton("Telefon");
         jo1.setEnabled(false);
         pas.setEnabled(false);
-        a=new JRadioButton( sikA[boyut]);
-        b=new JRadioButton(sikB[boyut]);
-        c=new JRadioButton(sikC[boyut]);
-        d=new JRadioButton(sikD[boyut]);
+        a=new JRadioButton(veri.get("A").get(boyut));
+        b=new JRadioButton(veri.get("B").get(boyut));
+        c=new JRadioButton(veri.get("C").get(boyut));
+        d=new JRadioButton(veri.get("D").get(boyut));
         grup.add(a);
         grup.add(b);
         grup.add(c);
         grup.add(d);
 
-        tf1=new JTextArea((soru+1)+". "+ sorular[boyut]);
+        tf1=new JTextArea((soru+1)+". "+ veri.get("Soru").get(boyut));
 
         a.setBounds(98, 318, 230, 20);
         b.setBounds(450, 318, 230, 20);
@@ -225,30 +223,29 @@ public class Frame extends Applet implements ActionListener
 
             boyut = rst.nextInt(sSayi);
             if(soru<2) {
-                if(duzey[boyut] == 1 && cikti[boyut] == 0) {
+                if(veri.get("Duzey").get(boyut).equals("1") && cikti[boyut] == 0) {
                     cikti[boyut]=1;
                     break;
                 }
             }
             else if(soru > 1 && soru < 7 && cikti[boyut] == 0) {
-                if(duzey[boyut] == 2) {
+                if(veri.get("Duzey").get(boyut).equals("2")) {
                     cikti[boyut]=1;
                     break;
                 }
             }
             else if(soru>6&&soru<11&& cikti[boyut]==0) {
-                if(duzey[boyut] == 3) {
+                if(veri.get("Duzey").get(boyut).equals("3")) {
                     cikti[boyut]=1;
                     break;
                 }
             }
             else if(soru == 11 && cikti[boyut] == 0) {
-                if(duzey[boyut] == 4) {
+                if(veri.get("Duzey").get(boyut).equals("4")) {
                     cikti[boyut]=1;
                     break;
                 }
             }
-
         }
 
         return boyut;
@@ -261,25 +258,25 @@ public class Frame extends Applet implements ActionListener
         if (e.getSource() == cev) {
             boolean kontrol=false;
 
-            if(cevap[boyut] == 'A') {
+            if(veri.get("Cevap").get(boyut).equals("A")) {
                 if(a.isSelected()) {
                     soru++;
                     kontrol=true;
                 }
             }
-            else if(cevap[boyut] == 'B') {
+            else if(veri.get("Cevap").get(boyut).equals("B")) {
                 if(b.isSelected()) {
                     soru++;
                     kontrol=true;
                 }
             }
-            else if(cevap[boyut] == 'C') {
+            else if(veri.get("Cevap").get(boyut).equals("C")) {
                 if(c.isSelected()) {
                     soru++;
                     kontrol=true;
                 }
             }
-            else if(cevap[boyut] == 'D') {
+            else if(veri.get("Cevap").get(boyut).equals("D")) {
                 if(d.isSelected()) {
                     soru++;
                     kontrol=true;
@@ -308,11 +305,11 @@ public class Frame extends Applet implements ActionListener
                     boyut=rstSoru();
                     resx-=24;
                     res.setBounds(792,resx,220,30);
-                    a.setText( sikA[boyut]);
-                    b.setText(sikB[boyut]);
-                    c.setText(sikC[boyut]);
-                    d.setText(sikD[boyut]);
-                    tf1.setText((soru+1)+". "+ sorular[boyut]);
+                    a.setText(veri.get("A").get(boyut));
+                    b.setText(veri.get("B").get(boyut));
+                    c.setText(veri.get("C").get(boyut));
+                    d.setText(veri.get("D").get(boyut));
+                    tf1.setText((soru+1)+". "+ veri.get("Soru").get(boyut));
                     a.setVisible(true);
                     b.setVisible(true);
                     c.setVisible(true);
@@ -410,28 +407,28 @@ public class Frame extends Applet implements ActionListener
             while(true) {
                 sayi = 1 + rst.nextInt(4);
                 if(sayi == 1 && yok != 1) {
-                    if(cevap[boyut] != 'A') {
+                    if(!veri.get("Cevap").get(boyut).equals("A")) {
                         a.setVisible(false);
                         cik++;
                         yok=1;
                     }
                 }
                 else if(sayi == 2 && yok != 2) {
-                    if(cevap[boyut] != 'B') {
+                    if(!veri.get("Cevap").get(boyut).equals("B")) {
                         b.setVisible(false);
                         cik++;
                         yok=2;
                     }
                 }
                 else if(sayi == 3 && yok != 3) {
-                    if(cevap[boyut] != 'C') {
+                    if(!veri.get("Cevap").get(boyut).equals("C")) {
                         c.setVisible(false);
                         cik++;
                         yok=3;
                     }
                 }
                 else if(sayi == 4 && yok != 4) {
-                    if(cevap[boyut] != 'D') {
+                    if(!veri.get("Cevap").get(boyut).equals("D")) {
                         d.setVisible(false);
                         cik++;
                         yok=4;
@@ -450,7 +447,7 @@ public class Frame extends Applet implements ActionListener
             int yuzde= 50+rst.nextInt(40);
 
             JOptionPane.showMessageDialog(fr, "Seyircilerden %"+yuzde+" oranında '"+
-                    cevap[boyut]+ "' seçeneği geldi.", "Seyirci Joker Hakkı", JOptionPane.QUESTION_MESSAGE);
+                    veri.get("Cevap").get(boyut) + "' seçeneği geldi.", "Seyirci Joker Hakkı", JOptionPane.QUESTION_MESSAGE);
             jo3.setEnabled(false);
             carpi3.setVisible(true);
         }//jo3(Seyirci) joker butonu komutları sonu
@@ -480,7 +477,7 @@ public class Frame extends Applet implements ActionListener
                     mesaj = sec + ": \"Sorudan emin değilim ama D şıkkı olabilir.\"";
             }
             else if(sec2 == 3) {
-                mesaj=sec+": \"Kesinlikle '"+ cevap[boyut]+"' şıkkı.\"";
+                mesaj=sec+": \"Kesinlikle '"+ veri.get("Cevap").get(boyut) + "' şıkkı.\"";
             }
 
             JOptionPane.showMessageDialog(fr, mesaj, "Telefon Joker Hakkı", JOptionPane.QUESTION_MESSAGE);
@@ -497,7 +494,7 @@ public class Frame extends Applet implements ActionListener
             String kullanici = JOptionPane.showInputDialog(fr,
                     "İsminizi giriniz: ",
                     "Oyun Bitti", JOptionPane.INFORMATION_MESSAGE);
-            skoruDosyayaYaz(kullanici);
+            fonksiyon.skorYaz("Skorlar.txt", kullanici, Integer.toString(para));
         }
 
 
@@ -514,15 +511,15 @@ public class Frame extends Applet implements ActionListener
             System.exit(0);
         }
         else if(durum2 == 0) {
-            cikanSorular();
+            Arrays.fill(cikti, 0);
             boyut=rstSoru();
             pas.setEnabled(false);
             soru=0;
-            a.setText( sikA[boyut]);
-            b.setText(sikB[boyut]);
-            c.setText(sikC[boyut]);
-            d.setText(sikD[boyut]);
-            tf1.setText((soru+1)+". "+ sorular[boyut]);
+            a.setText(veri.get("A").get(boyut));
+            b.setText(veri.get("B").get(boyut));
+            c.setText(veri.get("C").get(boyut));
+            d.setText(veri.get("D").get(boyut));
+            tf1.setText((soru+1)+". "+ veri.get("Soru").get(boyut));
             a.setVisible(true);
             b.setVisible(true);
             c.setVisible(true);
@@ -546,111 +543,4 @@ public class Frame extends Applet implements ActionListener
         }
     }
 
-    private void cikanSorular() {
-
-        for(int i = 0; i < sSayi; i++) {
-            cikti[i]=0;
-        }
-    }
-
-    private void skoruDosyayaYaz(String kullanici) {
-        Writer fw = null;
-
-        try{
-            fw = new FileWriter("Skorlar.txt",true);
-            fw.write(kullanici + "\t" + para+  "\t" + System.getProperty( "line.separator" ));
-        }catch(IOException e){
-            log.error("Skorlar yazılırken hata oluştu: " + e.getMessage());
-        }finally{
-            if(fw !=null){
-                try{
-                    fw.close();
-                } catch(IOException e){
-                    log.error("Skorlar dosyasını kapatmaya çalışırken hata oluştu: " + e.getMessage());
-                }
-            }
-        }
-
-    }
-
-    public void sorulariDosyadanOku() {
-        FileInputStream dosya;
-        int veri=-1;
-        int i=0;
-
-        try {
-            dosya = new FileInputStream(classLoader.getResource(sorularDosyaAdi).getPath());
-            InputStreamReader isr = new InputStreamReader(dosya,Charset.forName("UTF-8")); //Dosyadan çekilen verideki türkçe karakterleri algılaması için
-            BufferedReader bfr = new BufferedReader(isr);
-
-            /*String değişkenlerin başlangıç değerlerini boş yapar.
-             * Eğer başlangıç değerleri atanmasaydı string
-             * dizilere altta += işlemi kullanıldığında
-             * başlangıç değerine null yazdırırdı.*/
-            sorular[i]="";
-            sikA[i]="";
-            sikB[i]="";
-            sikC[i]="";
-            sikD[i]="";
-            int x=0;
-            do{
-                veri = bfr.read();
-                char karakter = (char) veri;
-                if (veri != -1 ){
-
-                    if(karakter == '\n'){ //Dosyada bir alt satıra geçildiğinde yapılacak işlemler
-                        x=0;
-                        i++;
-                        sSayi=i+1; //Satır sayısını tutar
-                        sorular[i]="";
-                        sikA[i]="";
-                        sikB[i]="";
-                        sikC[i]="";
-                        sikD[i]="";
-                        continue;
-                    } else if(karakter == '\t'){ //Dosyada tab karakterini gördüğünde yapılacak işlemler
-                        x++;
-                        continue;
-                    }
-
-                    if(x == 0){
-                        sorular[i]+= karakter;
-                    }
-                    else if(x == 1){
-                        sikA[i]+= karakter;
-                    }
-                    else if(x == 2){
-                        sikB[i]+= karakter;
-                    }
-                    else if(x == 3){
-                        sikC[i]+= karakter;
-                    }
-                    else if(x == 4){
-                        sikD[i]+= karakter;
-                    }
-                    else if(x == 5){
-                        cevap[i]= karakter;
-                    }
-                    else if(x == 6){
-                        duzey[i] = Character.getNumericValue(veri);
-                        x++;
-                    }
-                }
-            }while( veri!=-1);
-
-            dosya.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Dosya Okunamadı", "Hata",
-                    JOptionPane.ERROR_MESSAGE);
-            log.error("Dosya okunamadı " + e.getMessage());
-        }
-    }
-
-    public String getSorularDosyaAdi() {
-        return sorularDosyaAdi;
-    }
-
-    public void setSorularDosyaAdi(String sorularDosyaAdi) {
-        this.sorularDosyaAdi = sorularDosyaAdi;
-    }
 }
