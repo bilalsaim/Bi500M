@@ -1,6 +1,6 @@
-# Kim 500 Bin İster?
+# Kim 500 Milyoner İster?
 
-Meşhur Kim 500 Bin İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur. 2012'de geliştirmiştir ve sonrasında kod güncellemesi yapılmıştır.
+Meşhur eski adıyla Kim 500 Milyon İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur. 2012'de geliştirmiştir ve sonrasında kod güncellemesi yapılmıştır.
 
 ![Kim 500 Bin İster Ekran Görüntüsü](https://bilalsaim.com/500m.png)
 
