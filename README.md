@@ -1,6 +1,7 @@
 # Kim 500 Bin İster?
 
 Meşhur Kim 500 Bin İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur.
+![Kim 500 Bin İster Ekran Görüntüsü](https://bilalsaim.com/500m.png)
 
 ## Authors
 
