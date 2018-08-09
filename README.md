@@ -1,6 +1,6 @@
-# Kim Milyoner Olmak İster?
+# Kim Milyoner Olmak İster? (Who Wants to Be a Millionaire)
 
-Meşhur Kim Milyoner Olmak İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur. 2012'de geliştirmiştir ve sonrasında kod güncellemesi yapılmıştır.
+Meşhur Kim Milyoner Olmak İster yarışma programının Java programlama dilinde yazılmış masaüstü oyunudur. 2012'de geliştirmiştir ve sonrasında kod güncellemesi yapılmıştır. (It's a desktop game which built on Java. The game is based on "Who Wants to Be a Millionaire" quiz show. Developed in 2012 and then made code update.
 
 ![Kim 500 Bin İster Ekran Görüntüsü](https://bilalsaim.com/500m.png)
 
