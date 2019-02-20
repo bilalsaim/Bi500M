@@ -21,7 +21,7 @@ Meşhur Kim Milyoner Olmak İster yarışma programının Java programlama dilin
 
 ## Yazar
 
-* **Bilal Saim** - *Diğer Projeler* - [Github](https://github.com/bilalsaim) - [Kişisel İnternet Sayfası](https://github.com/bilalsaim)
+* **Bilal Saim** - *Diğer Projeler* - [Github](https://github.com/bilalsaim) - [Kişisel İnternet Sayfası](https://www.bilalsaim.com)
 
 ## License
 
